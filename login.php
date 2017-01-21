@@ -4,10 +4,22 @@
     $password = $_POST['password'];
 
     $connection = mysqli_connect('localhost', 'root', '', 'myLogin');
-
     if($connection){
       echo 'connected to the database';
+    }else {
+      die("coonection to database FAILED");
     }
+
+    $query = "INSERT INTO USERS(username, password)";
+    $query .= "VALUES('$username', '$password')";
+    $result = mysqli_query($connection, $query);
+
+    if(!$result){
+      echo "something went wrong";
+    }else {
+      echo 'Account Created';
+    }
+
   }
  ?>
 
@@ -27,7 +39,7 @@
       form {
         max-width: 20%;
         margin-left: 41%;
-        margin-top: 18%
+        margin-top: 18%;
       }
     </style>
   </head>
@@ -35,7 +47,7 @@
     <form action="login.php" method="post">
       <div class="form-group">
         <label for="username">Username</label>
-        <input type="text" class="form-control" name = 'username' id="username" placeholder="Email">
+        <input type="text" class="form-control" name = 'username' id="username" placeholder="Username">
       </div>
       <div class="form-group">
         <label for="passowrd">Password</label>
